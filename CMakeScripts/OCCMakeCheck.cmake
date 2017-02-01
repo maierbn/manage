@@ -15,22 +15,31 @@ set(${_HTTPS_CHECK_VAR} YES)
 if(FALSE) #*****************************************************************
 if (NOT ${_HTTPS_CHECK_VAR}) 
     message(STATUS "Checking CMake-${CMAKE_VERSION} HTTPS support ...")
-    set(CMAKE_HTTPS_TEST_URL "https://raw.githubusercontent.com/OpenCMISS/manage/v1.0/README.rst")
-    set(CMAKE_HTTPS_TEST_DOWNLOAD_PATH "${OPENCMISS_ROOT}/build/cmake_https_test_download.txt")
-    file(DOWNLOAD ${CMAKE_HTTPS_TEST_URL} ${CMAKE_HTTPS_TEST_DOWNLOAD_PATH} STATUS https_status TIMEOUT 60 INACTIVITY_TIMEOUT 60)
-    list(GET https_status 0 HTTPS_TEST_DOWNLOAD_ERROR_CODE)
-    list(GET https_status 1 HTTPS_TEST_DOWNLOAD_ERROR_STRING)
-    # https download was successful
-    if (HTTPS_TEST_DOWNLOAD_ERROR_CODE EQUAL 0)
-        set(${_HTTPS_CHECK_VAR} YES CACHE BOOL "Checks if CMake ${CMAKE_VERSION} is build with SSL support")
-    endif(HTTPS_TEST_DOWNLOAD_ERROR_CODE EQUAL 0)
-    # remove the test file as it will be created either way
-    file(REMOVE ${CMAKE_HTTPS_TEST_DOWNLOAD_PATH})
-    if (${_HTTPS_CHECK_VAR})
-        message(STATUS "Checking CMake-${CMAKE_VERSION} HTTPS support ... done")
-    else()
-        message(STATUS "Checking CMake-${CMAKE_VERSION} HTTPS support ... failed")
+    
+    message(WARNING "manually disabled!")
+    
+    # HTTPS support manually disabled here, (want to configure without internet connection)
+    set(${_HTTPS_CHECK_VAR} YES)
+    if (FALSE)
+      set(CMAKE_HTTPS_TEST_URL "https://raw.githubusercontent.com/OpenCMISS/manage/v1.0/README.rst")
+      set(CMAKE_HTTPS_TEST_DOWNLOAD_PATH "${OPENCMISS_ROOT}/build/cmake_https_test_download.txt")
+      file(DOWNLOAD ${CMAKE_HTTPS_TEST_URL} ${CMAKE_HTTPS_TEST_DOWNLOAD_PATH} STATUS https_status TIMEOUT 60 INACTIVITY_TIMEOUT 60)
+      list(GET https_status 0 HTTPS_TEST_DOWNLOAD_ERROR_CODE)
+      list(GET https_status 1 HTTPS_TEST_DOWNLOAD_ERROR_STRING)
+      # https download was successful
+      if (HTTPS_TEST_DOWNLOAD_ERROR_CODE EQUAL 0)
+	  set(${_HTTPS_CHECK_VAR} YES CACHE BOOL "Checks if CMake ${CMAKE_VERSION} is build with SSL support")
+      endif(HTTPS_TEST_DOWNLOAD_ERROR_CODE EQUAL 0)
+      # remove the test file as it will be created either way
+      file(REMOVE ${CMAKE_HTTPS_TEST_DOWNLOAD_PATH})
+      if (${_HTTPS_CHECK_VAR})
+	  message(STATUS "Checking CMake-${CMAKE_VERSION} HTTPS support ... done")
+      else()
+	  message(STATUS "Checking CMake-${CMAKE_VERSION} HTTPS support ... failed")
+      endif()
     endif()
+    
+    
 endif(NOT ${_HTTPS_CHECK_VAR})
 endif() #****************************************************************
 
