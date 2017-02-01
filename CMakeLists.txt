@@ -123,7 +123,19 @@ if (PYTHONINTERP_FOUND AND PYTHONLIBS_FOUND AND SWIG_FOUND)
 else()
     set(OC_PYTHON_PREREQ_FOUND NO)
 endif()
-    
+
+#if ((CMAKE_BUILD_TYPE MATCHES DEBUG) OR USE_PROFILING)
+#
+#    # manually enable tauprof
+#    add_definitions(-DTAUPROF -L/store/Office/Studium/11.Semester/Forschungsarbeit_1/opencmiss/extras/TAU/tau-2.23.1/x86_64/lib/libTAU.so)\
+#
+#    message(WARNING "TAUPROF is manually enabled with a hardcoded path! You want to adjust this path to your extern TAU installation! (in iron/manage/CMakeLists.txt:127)")
+#
+#    # manually enable custom profiling
+#    add_definitions(-DUSE_CUSTOM_PROFILING)
+#    
+#endif()
+
 # This includes the configuration, both default and local
 include(OpenCMISSConfig)
 

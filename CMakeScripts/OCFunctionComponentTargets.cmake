@@ -63,12 +63,13 @@ function(addConvenienceTargets COMPONENT_NAME BINARY_DIR SOURCE_DIR)
     
     # Add convenience direct-access forced build target for component
     getBuildCommands(_DUMMY INSTALL_COMMAND ${BINARY_DIR} TRUE)
-    add_custom_target(${COMPONENT_NAME_LOWER}
-        COMMAND ${CMAKE_COMMAND} -E remove -f ${BINARY_DIR}/ep_stamps/*-build
-        COMMAND ${INSTALL_COMMAND}
-    )
-    set_target_properties(${COMPONENT_NAME_LOWER} PROPERTIES FOLDER "${COMPONENT_NAME_LOWER}")
-    
+    if (NOT TARGET ${COMPONENT_NAME_LOWER})
+      add_custom_target(${COMPONENT_NAME_LOWER}
+          COMMAND ${CMAKE_COMMAND} -E remove -f ${BINARY_DIR}/ep_stamps/*-build
+          COMMAND ${INSTALL_COMMAND}
+      )
+      set_target_properties(${COMPONENT_NAME_LOWER} PROPERTIES FOLDER "${COMPONENT_NAME_LOWER}")
+    endif()
     if (BUILD_TESTS)
         # Add convenience direct-access test target
         add_custom_target(${COMPONENT_NAME_LOWER}-test

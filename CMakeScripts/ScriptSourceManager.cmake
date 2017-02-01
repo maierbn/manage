@@ -7,6 +7,7 @@
 if (MODE STREQUAL "Check")
     # Passed variables are: SRC_DIR, BIN_DIR and COMPONENT
     if (NOT EXISTS "${SRC_DIR}/CMakeLists.txt")
+	message(STATUS "${SRC_DIR}/CMakeLists.txt does not exit - download sources")
         execute_process(
 	    COMMAND ${CMAKE_COMMAND} -E make_directory "${SRC_DIR}"
             COMMAND ${CMAKE_COMMAND} --build "${BIN_DIR}" --target ${COMPONENT}-download
